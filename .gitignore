@@ -1,3 +1,9 @@
+# bison & flex output
+y.output
+y.tab.h
+shell
+libexec.a
+
 # Prerequisites
 *.d
 

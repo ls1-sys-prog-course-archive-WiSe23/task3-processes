@@ -6,23 +6,22 @@ CXX ?= c++
 CXXFLAGS ?= -g -Wall -O2
 CARGO ?= cargo
 RUSTFLAGS ?= -g
+LDFLAGS ?= -pthread
+# CPPFLAGS += -DYYDEBUG -DDEBUG
 
-# this target should build all executables for all tests
 all:
-	@echo "Please set a concrete build command here"
+	echo "Include either c.make or rust.make"
 	false
-
-# C example:
-#all:
-#	$(CC) $(CFLAGS) -o task-name task-name.c
-
-# C++ example:
-#all:
-#	$(CXX) $(CXXFLAGS) -o task-name task-name.cpp
+# C/C++ example:
+#include c.make
 
 # Rust example:
+#include rust.make
+
+# this target should build all executables for all tests
 #all:
-#	$(CARGO) build --release
+#	@echo "Please set a concrete build command here"
+#	false
 
 # Usually there is no need to modify this
 check: all
