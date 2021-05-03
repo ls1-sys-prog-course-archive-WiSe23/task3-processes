@@ -29,4 +29,4 @@ shell: $(OBJ)
 	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	rm -f *.o scan.c parse.c y.tab.h y.output shell
+	rm -f *.o scan.c parse.c y.tab.h y.output shell libexec.a
