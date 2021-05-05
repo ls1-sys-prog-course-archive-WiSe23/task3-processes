@@ -1,6 +1,6 @@
 # Implement functionalities of a shell
 
-The goal of this assignment is to implement a interactive shell.  To simplify
+The goal of this assignment is to implement an interactive shell.  To simplify
 the task you will be given a parser based on flex and bison that parses
 expressions like:
 
@@ -42,9 +42,9 @@ struct pipeline = {
 }
 ```
 
-See `parse.h` for further documentation. Furthermore the shell parser also
-recognizes the following builtins: `wait`, `exit`, `wait`, `kill`. Those will be
-parsed into `enum builtin_type`, while an optional arguments goes into
+See `parse.h` for further documentation. Furthermore, the shell parser also
+recognizes the following builtins: `wait`, `exit`, `kill`. Those will be
+parsed into `enum builtin_type`, while an optional argument goes into
 `buitin_arg`.
 
 Your task is to implement two functions:
@@ -52,31 +52,31 @@ Your task is to implement two functions:
 ## run_pipeline
 
 `run_pipeline` should execute one pipeline structure. If a pipeline references
-more than one `struct command` than each command stdin should be connected to the
+more than one `struct command` then each command stdin should be connected to the
 stdout of the previous command with a pipe (except for the first command, which
 has no previous stdin it could be connected to).
-If `output_redir` is set than the commands stdout should be redirected to file
+If `output_redir` is set then the commands stdout should be redirected to file
 path specified. Stdout should be writeable.
-If `input_redir` is set than the commands stdin should be redirected to the file
+If `input_redir` is set then the commands stdin should be redirected to the file
 path specified. Stdin should be readable.
 
 ## run_builtin
 
-`run_builtin` should perform one of the for three builtins types:
+`run_builtin` should perform one of the three builtin types:
 
 `wait [PID]`: Accepts an optional argument `PID` via builtin_arg (builtin_arg is
 NULL if not provided by the user). If a pid is provided the shell should use
-`waitpid(2)` on this pid.  If no `PID` is provided it should use the
+`waitpid(2)` on this pid.  If no pid is provided it should use the
 `waitpid(2)` to wait for any child process.
 
 `exit [CODE]`: Accepts an optional argument `CODE` via builtin_arg (builtin_arg
 is NULL if not provided by the user). If an exitcode is provided the shell
 should use `exit(2)` to terminate the shell with the given exitcode. If no
-`CODE` argument is provided with should exit the program with exit code 0.
+`CODE` argument is provided the shell should exit with exit code 0.
 
 `kill PID`: Accepts an argument `PID` via builtin_arg (builtin_arg is NULL if not provided by the user). 
-If the argument is not provided (`builtin_arg` is NULL) than a meaningfull error message should be printed.
-When the kill builtin is called, the shell should send a SIGTERM signal to process specified by PID.
+If the argument is not provided (`builtin_arg` is NULL) then a meaningfull error message should be printed.
+When the kill builtin is called, the shell should send a SIGTERM signal to the process specified by pid.
 
 
 ## Test setup
