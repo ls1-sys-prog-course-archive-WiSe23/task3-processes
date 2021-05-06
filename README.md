@@ -95,3 +95,5 @@ For Rust uncomment `rust.make` and implement functions in `src/lib.rs`. This
 will compile a crate as a static library and link this library against the
 `shell` executable. Since this is a ffi binding, you will need unsafe constructs
 to access `struct pipeline` (see https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html).
+For rust use `fork` and `execve` from the `libc` crate or `nix` instead of using
+`std::process::Process`.
