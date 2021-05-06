@@ -18,7 +18,8 @@ LIBS = -lfl
 all: shell
 
 libexec.a:
-	$(CARGO) build -Z unstable-options --out-dir .
+	$(CARGO) build
+	cp target/debug/libexec.a .
 
 LIBS += -L. -lexec -pthread -ldl -lrt
 OBJ += libexec.a
