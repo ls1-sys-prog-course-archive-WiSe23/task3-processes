@@ -83,6 +83,12 @@ When the kill builtin is called, the shell should send a SIGTERM signal to the p
 
 The test setup expects an executable `shell` in the current directory.
 
+The parser given requires flex and bison to be installed, i.e.
+
+``` console
+$ apt install flex bison
+```
+
 For C/C++ uncomment `c.make` in the Makefile and implement your functionality in `execute.c`.
 
 For Rust uncomment `rust.make` and implement functions in `src/lib.rs`. This
