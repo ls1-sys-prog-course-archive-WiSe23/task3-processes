@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import subprocess
+import os
 import resource
 
 from testsupport import info, run_project_executable, subtest
@@ -13,12 +14,14 @@ test_line = "grep-should-find-this"
 def main() -> None:
     ensure_dependencies()
 
+    src_file = os.path.abspath(__file__)
+
     with subtest(
-        f"Test pipe implementation by running 'cat {__file__} | grep {test_line}'"
+        f"Test pipe implementation by running 'cat {src_file} | grep {test_line}'"
     ):
         proc = run_project_executable(
             "shell",
-            input=f"cat {__file__} | grep {test_line}\n",
+            input=f"cat {src_file} | grep {test_line}\n",
             stdout=subprocess.PIPE,
         )
         out = proc.stdout.strip()
