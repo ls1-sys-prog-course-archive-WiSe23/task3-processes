@@ -5,11 +5,11 @@ use libc;
 pub struct command {
   next: *const command,
 
-  argv: *const *const char,
+  argv: *const *const libc::c_char,
   argv_cap: libc::size_t,
   argc: libc::c_int,
-  output_redir: *const char,
-  input_redir: *const char,
+  output_redir: *const libc::c_char,
+  input_redir: *const libc::c_char,
 }
 
 #[derive(Debug)]
