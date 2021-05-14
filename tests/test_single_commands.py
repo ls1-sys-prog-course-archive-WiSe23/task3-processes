@@ -18,18 +18,21 @@ def main() -> None:
             "shell", input=f"echo {hostname}\n", stdout=subprocess.PIPE
         )
         out = proc.stdout.strip()
-        assert out == hostname, f"shell stdout: expected: {hostname}, got {out}"
+        assert out == hostname, f"shell stdout: expected: '{hostname}', got '{out}'"
         info("OK")
 
     with subtest("Test number of file descriptor with 'ls /proc/self/fd'"):
         proc = run_project_executable(
-            "shell", input="ls /proc/self/fd\n", stdout=subprocess.PIPE
+            "shell",
+            input="ls /proc/self/fd\n",
+            stdout=subprocess.PIPE,
+            extra_env=dict(LC_ALL="C"),
         )
-        out = proc.stdout
-        expected = "0\n1\n2\n3\n"
+        out = proc.stdout.strip()
+        expected = "0\n1\n2\n3"
         assert (
             out == expected
-        ), f"Child process has not expected number of file descriptors: expected: {expected}, got {out}"
+        ), f"Child process has not expected number of file descriptors: expected: '{expected}', got '{out}'"
         info("OK")
 
     expected_stderr = os.readlink("/proc/self/fd/2")
@@ -43,7 +46,9 @@ def main() -> None:
         )
         out = proc.stdout
         lines = out.strip().split("\n")
-        assert len(lines) == 3, f"Expected 3 lines in the readlink output, got:\n{out}"
+        assert (
+            len(lines) == 3
+        ), f"Expected 3 lines in the readlink output, got:\n'{out}'"
         stdin = lines[0]
         assert stdin.startswith(
             "pipe:"
