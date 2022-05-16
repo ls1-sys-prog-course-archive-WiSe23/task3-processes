@@ -3,7 +3,7 @@
     {
       "name": "Build",
       "setup": "",
-      "run": "timeout 5m make all",
+      "run": "timeout -s KILL 5m make all",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -13,7 +13,7 @@
     {
       "name": "Test single commands",
       "setup": "",
-      "run": "timeout 1m python tests/test_single_commands.py",
+      "run": "timeout -s KILL 1m python tests/test_single_commands.py",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -23,7 +23,7 @@
     {
       "name": "Test pipes",
       "setup": "",
-      "run": "timeout 1m python tests/test_pipes.py",
+      "run": "timeout -s KILL 1m python tests/test_pipes.py",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -33,7 +33,7 @@
     {
       "name": "Test builtins",
       "setup": "",
-      "run": "timeout 1m python tests/test_builtins.py",
+      "run": "timeout -s KILL 1m python tests/test_builtins.py",
       "input": "",
       "output": "",
       "comparison": "included",
