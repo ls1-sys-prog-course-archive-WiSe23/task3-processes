@@ -5,4 +5,4 @@ FROM mcr.microsoft.com/vscode/devcontainers/rust:latest
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
 RUN rustup toolchain install nightly && rustup override set nightly \
-    && apt-get update && apt-get -y install --no-install-recommends build-essential flex bison libfl-dev
+    && apt-get update && apt-get -y install --no-install-recommends build-essential flex bison libfl-dev libfmt-dev librange-v3-dev
