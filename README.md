@@ -60,6 +60,8 @@ path specified. Stdout should be writeable.
 If `input_redir` is set then the commands stdin should be redirected to the file
 path specified. Stdin should be readable.
 
+Note that `run_pipeline` must return a non-`0` value for errors.
+
 ## run_builtin
 
 `run_builtin` should perform one of the three builtin types:
@@ -74,10 +76,11 @@ is NULL if not provided by the user). If an exitcode is provided the shell
 should use `exit(2)` to terminate the shell with the given exitcode. If no
 `CODE` argument is provided the shell should exit with exit code 0.
 
-`kill PID`: Accepts an argument `PID` via builtin_arg (builtin_arg is NULL if not provided by the user). 
+`kill PID`: Accepts an argument `PID` via builtin_arg (builtin_arg is NULL if not provided by the user).
 If the argument is not provided (`builtin_arg` is NULL) then a meaningfull error message should be printed.
 When the kill builtin is called, the shell should send a SIGTERM signal to the process specified by pid.
 
+Note that all builtins must return non-`0` for errors.
 
 ## Test setup
 

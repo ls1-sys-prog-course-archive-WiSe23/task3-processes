@@ -76,17 +76,31 @@ def main() -> None:
             ), f"{path} does not contain expected content: '{expected}', got:\n'{content}'"
             info("OK")
 
-    cmd = f'bash -c "sleep 1; echo subshell" &\nwait\necho shell\n'
+    cmds = [f'bash -c "sleep 1; echo subshell" &\nwait\necho shell\n',
+            f'wait\nwait\n'
+            f'wait hello\n']
 
-    with subtest(f"Test shell builtin wait with {cmd}"):
-        proc = run_project_executable("shell", input=cmd, stdout=subprocess.PIPE)
+    with subtest(f"Test shell builtin wait with {cmds}"):
+        # Test valid call to wait
+        proc = run_project_executable("shell", input=cmds[0], stdout=subprocess.PIPE)
         expected = "subshell\nshell\n"
         assert (
             proc.stdout == expected
         ), f"expected shell output: '{expected}', got:\n'{proc.stdout}'"
         info("OK")
 
-    with subtest(f"Test shell builtin kill"):
+        # Test invalid calls to wait
+        for cmd in cmds[1:]:
+            proc = run_project_executable("shell", input=cmd,
+                                          stderr=subprocess.PIPE,
+                                          stdout=subprocess.PIPE, check=False)
+            assert (
+                proc.returncode != 0
+            ), f"expected shell to raise error on invalid wait invocation"
+            info("OK")
+
+    with subtest(f"Test shell builtin kill cat"):
+        # Test kill with valid process PID
         with subprocess.Popen(["cat"], stdin=subprocess.PIPE, text=True) as cat_proc:
             cmd = f"kill {cat_proc.pid}\n"
             proc = run_project_executable("shell", input=cmd, stdout=subprocess.PIPE)
@@ -96,7 +110,6 @@ def main() -> None:
                 signal == expected_signal
             ), f"expected kill to terminate process with SIGTERM (-15), got: {signal}"
             info("OK")
-
 
 if __name__ == "__main__":
     main()

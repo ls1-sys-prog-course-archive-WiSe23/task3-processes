@@ -3,7 +3,7 @@
     {
       "name": "Build",
       "setup": "",
-      "run": "timeout -s KILL 5m make all",
+      "run": "timeout 5m make all",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -11,34 +11,64 @@
       "points": null
     },
     {
-      "name": "Test single commands",
+      "name": "Test simple commands",
       "setup": "",
-      "run": "timeout -s KILL 1m python tests/test_single_commands.py",
+      "run": "timeout 1m python3 tests/test_simple_commands.py",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 1,
-      "points": 10
+      "points": 5
     },
     {
-      "name": "Test pipes",
+      "name": "Test redirect commands",
       "setup": "",
-      "run": "timeout -s KILL 1m python tests/test_pipes.py",
+      "run": "timeout 1m python3 tests/test_redirect.py",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 1,
-      "points": 10
+      "points": 5
+    },
+    {
+      "name": "Test pipes 1",
+      "setup": "",
+      "run": "timeout 1m python3 tests/test_pipes_1.py",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": 5
+    },
+    {
+      "name": "Test pipes 2",
+      "setup": "",
+      "run": "timeout 1m python3 tests/test_pipes_2.py",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": 5
     },
     {
       "name": "Test builtins",
       "setup": "",
-      "run": "timeout -s KILL 1m python tests/test_builtins.py",
+      "run": "timeout 1m python3 tests/test_builtins.py",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 1,
-      "points": 10
+      "points": 5
+    },
+    {
+      "name": "Test advanced",
+      "setup": "",
+      "run": "timeout 1m python3 tests/test_advanced.py",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": 5
     }
   ]
 }

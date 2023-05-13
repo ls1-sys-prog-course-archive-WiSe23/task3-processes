@@ -55,8 +55,9 @@ static void free_pipeline_cmds(struct pipeline *p) {
 
 
 // uncomment this for more verbose output
-//#define DEBUG
+// #define DEBUG
 
+int last_status = 0;
 int main(void) {
   while (1) {
     current_builtin = BUILTIN_NONE;
@@ -72,7 +73,7 @@ int main(void) {
     yyparse();
 
     if (eof) {
-      exit(0);
+      exit(last_status);
     }
 
     if (current_builtin != BUILTIN_NONE) {
@@ -87,7 +88,7 @@ int main(void) {
       printf("builtin %s(%s)\n\n", name, builtin_arg ? builtin_arg : "");
       fflush(stdout);
 #endif
-      run_builtin(current_builtin, builtin_arg);
+      last_status = run_builtin(current_builtin, builtin_arg);
       if (builtin_arg) {
         free(builtin_arg);
       }
@@ -99,7 +100,7 @@ int main(void) {
         i++;
         printf("command %d\n", i);
         for (size_t j = 0; j < (size_t)c->argc; j++) {
-          printf("  argv[%d]: %s\n", i, c->argv[j]);
+          printf("  argv[%d][%ld]: %s\n", i, j, c->argv[j]);
         }
         if (c->input_redir) {
           printf("  input_redir: %s\n", c->input_redir);
@@ -114,11 +115,11 @@ int main(void) {
 #endif
 
       if (current_pipeline.first_command.argc != 0) {
-        run_pipeline(&current_pipeline);
+        last_status = run_pipeline(&current_pipeline);
         free_pipeline_cmds(&current_pipeline);
       }
     }
   }
 
-  return 0;
+  return last_status;
 }

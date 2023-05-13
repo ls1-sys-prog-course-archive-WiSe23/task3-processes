@@ -50,6 +50,6 @@ extern char* builtin_arg;
 int yyparse(void);
 
 // To be implemented, see README
-void run_pipeline(struct pipeline *p);
+int run_pipeline(struct pipeline *p);
 // To be implemented, see README
-void run_builtin(enum builtin_type builtin, char* builtin_arg);
+int run_builtin(enum builtin_type builtin, char* builtin_arg);
