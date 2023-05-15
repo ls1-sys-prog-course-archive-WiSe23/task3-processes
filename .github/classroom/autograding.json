@@ -11,9 +11,9 @@
       "points": null
     },
     {
-      "name": "Test simple commands",
+      "name": "Test single commands",
       "setup": "",
-      "run": "timeout 1m python3 tests/test_simple_commands.py",
+      "run": "timeout 1m python3 tests/test_single_commands.py",
       "input": "",
       "output": "",
       "comparison": "included",
