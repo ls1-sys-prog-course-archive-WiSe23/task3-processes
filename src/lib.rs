@@ -30,7 +30,7 @@ pub enum builtin_type {
 }
 
 #[no_mangle]
-pub extern "C" fn run_pipeline(p: *const pipeline) {}
+pub extern "C" fn run_pipeline(p: *const pipeline) -> i32 { return 2; }
 
 #[no_mangle]
-pub extern "C" fn run_builtin(builtin: builtin_type, builtin_arg: *const libc::c_char) {}
+pub extern "C" fn run_builtin(builtin: builtin_type, builtin_arg: *const libc::c_char) -> i32 { return 2; }

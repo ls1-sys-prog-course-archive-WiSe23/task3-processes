@@ -13,7 +13,7 @@ def main() -> None:
     ensure_dependencies()
     hostname = socket.gethostname()
 
-    with subtest("Test running simple command 'echo hostname'"):
+    with subtest("Test running single command 'echo hostname'"):
         proc = run_project_executable(
             "shell", input=f"echo {hostname}\n", stdout=subprocess.PIPE
         )
@@ -21,7 +21,7 @@ def main() -> None:
         assert out == hostname, f"shell stdout: expected: '{hostname}', got '{out}'"
         info("OK")
 
-    with subtest("Test running simple command that does not exist"):
+    with subtest("Test running single command that does not exist"):
         proc = run_project_executable(
             "shell", input=f"dev_null_foo\n", stdout=subprocess.PIPE,
             check=False
@@ -29,7 +29,7 @@ def main() -> None:
         assert proc.returncode != 0, f"expected shell error on non-existent executable, got '{proc.returncode}'"
         info("OK")
 
-    with subtest("Test running simple command with invalid arguments"):
+    with subtest("Test running single command with invalid arguments"):
         proc = run_project_executable(
             "shell", input=f"ls -P\n", stdout=subprocess.PIPE, check=False
         )
