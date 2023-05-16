@@ -104,7 +104,7 @@ def main() -> None:
         with subprocess.Popen(["cat"], stdin=subprocess.PIPE, text=True) as cat_proc:
             cmd = f"kill {cat_proc.pid}\n"
             proc = run_project_executable("shell", input=cmd, stdout=subprocess.PIPE)
-            signal = cat_proc.poll()
+            signal = cat_proc.wait(timeout=3)
             expected_signal = -15
             assert (
                 signal == expected_signal

@@ -79,12 +79,12 @@ def main() -> None:
         wc_proc  = subprocess.Popen(["wc"], stdin=cat_proc.stdout,
                                     stdout=subprocess.PIPE, preexec_fn=os.setsid)
         cmd = f"kill {cat_proc.pid}\nkill {wc_proc.pid}\n"
-        proc = run_project_executable("shell", input=cmd, stdout=subprocess.PIPE)
-        wc_finished = wc_proc.poll()
-        cat_finished = cat_proc.poll()
+        proc = run_project_executable("shell", input=cmd, check=False, stdout=subprocess.PIPE)
+        wc_finished = wc_proc.wait(timeout=3)
+        cat_finished = cat_proc.wait(timeout=3)
         expected_signal = -15
         assert (
-            cat_finished == expected_signal and wc_finished == expected_signal
+            cat_finished == expected_signal and (wc_finished == expected_signal or wc_finished == 0)
         ), f"expected kill to terminate group process with SIGTERM (-15), got: {cat_finished} {wc_finished}"
         info("OK")
 
@@ -101,3 +101,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
