@@ -17,11 +17,11 @@ def main() -> None:
     src_file = os.path.abspath(__file__)
     test_line = "grep-should-find-this"
     with subtest(
-        f"Test pipe implementation by running 'cat {src_file} | grep {test_line}'"
+        f"Test pipe implementation by running 'cat \"{src_file}\" | grep {test_line}'"
     ):
         proc = run_project_executable(
             "shell",
-            input=f"cat {src_file} | grep {test_line}\n",
+            input=f"cat \"{src_file}\" | grep {test_line}\n",
             stdout=subprocess.PIPE,
         )
 
